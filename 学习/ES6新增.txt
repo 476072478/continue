@@ -1,0 +1,710 @@
+从ES6开始，每年发布一个版本，版本号比年份最后一位大1
+01-为什么要学习ES6
+ES6的版本变动最多，具有里程碑意义
+ES6加入了许多新的语法特性，编程实现更简单
+ES6是前端发展趋势，就业必备技能
+
+02-ES6兼容性
+http://kangax.github.io/compat-table/es6/ 查看兼容性
+
+03-ES6-let声明变量
+1）格式：不能重复声明
+let star = '罗'
+let star = 'g' //报错，防止变量污染
+var是可以的
+2）块级作用域，全局，函数，eval
+if,else,while,for
+{
+	let girl = '小唐'
+}
+console.log(girl) //报错
+3）不存在变量提升！！！
+console.log(a) // 报错
+let a = 1 
+4）不影响作用域链
+let a = 1
+function bbq(){
+	console.log(a) // 1
+}
+
+04-ES6-const定义常量
+1）声明格式
+
+
+05-结构解构
+1）数组结构
+const ARR = ['小沈阳', '赵四', '收纳柜']
+let [xiao, liu, zhaosi] = ARR
+2）对象解构
+const biu = {
+        name: '小唐',
+        like: '小周',
+        time: 'every'
+    }
+let { name, like, time } = biu
+名字必须和里面的相同才能结构解构
+
+06.ES6-声明字符串方式
+1）``
+2）''
+3)  ""
+模板字符串特性：内容中可以直接出现换行符，${}直接进行变量拼接
+
+07.ES6-简化对象写法
+允许在大括号里面，直接写入变量和函数，作为对象的属性和方法
+let name = '尚硅谷'
+let change = function(){
+	console.log('nice!')
+}
+const school = {
+	name,
+	change,
+	improve(){
+		console.log('nice!')
+	}
+}
+
+08.箭头函数以及声明特点（箭头函数指向爷爷）
+*箭头函数适合与this无关的回调：定时器，数组的方法回调
+*箭头函数不适合与this有关的回调：事件回调，对象的方法
+let fn = ()=>{
+	
+}
+*特点：this是静态的，this始终指向函数声明时所在作用域下的this的值(箭头函数的this就是作用域的this指向的地方z)
+*普通函数：谁调用this指向谁，箭头函数：我在哪里创建，this指向谁
+*不能作为构造实例化对象
+*不能使用arguments变量
+箭头函数的简写
+1）当形参有且只有一个的时候
+let add = n =>{
+	console.log(n)
+}
+add(1) // 1
+2）省略花括号，当代码体只有一条语句的时候，此时return必须省略，而且语句的执行结构就是函数的返回值
+let add = n => console.log(n)
+add(1)//1
+
+09.函数参数赋值初始值
+*function add(a=100,b,c){
+	//传的话a就是传的值，不传的话a就是100
+}
+*与解构赋值结合
+       function connect({ host, username, password, port = 300 } = options) {
+            console.log(host)
+            console.log(username)
+            console.log(password)
+            console.log(port)
+        }
+        connect({
+            host: 'localhost',
+            username: 'root',
+            password: 'root',
+        })
+
+10.rest参数（代替arguments）(rest参数必须要放到参数最后，剩下的才会传给rest)
+function date(...rest){
+	console.log(rest)//rest是个数组，而不是对象了 
+}
+date('小唐'，'小唐'，'小唐')
+
+10.扩展运算符（...Arr）（把数组转化为参数序列）
+*将参数分割开
+const Arr = ['小唐', '小周', '爱你']
+console.log(...Arr) //'小唐', '小周', '爱你'
+*应用
+1）数组的合并
+原来的js合并
+Arr.concat(Bqq)
+扩展运算符
+[...Arr, ...Bqq]
+
+2）数组的拷贝
+const bbq = ['E','G','M']
+const saihi = [...bbq]
+
+3）将伪数组转为真正的数组
+const divs = document.querySelectorAll('div')
+const newdivs = [...divs] // arguments也能转化
+
+11.symbol
+*symbol是唯一的，用来解决命名冲突的问题（唯一性不可见）
+*symbol值不能与其他数据计算
+*创建
+1）let s = Symbol()
+2）let s2 = Symbol('尚硅谷')//尚硅谷只是一个标志，两个张三，但是是两个不同的人
+3）let s4 = Symbol.for('尚硅谷') //对象
+	let s5 = Symbol.for('尚硅谷')   s4 === s5
+*使用(给对象添加方法 up down)
+game['name'] 查找对象的name
+1）let methods = {
+	up:Symbol(),
+	down:Symbol()
+}
+game[methods.up] = function(){}
+game[methods.down] = function(){} // 防止命名重复，即使看不见game的值也能够安心加方法
+game[methods.up]() //调用
+
+
+12.ES6-迭代器
+1）是一种接口，为各种不同的数据解构提供统一的访问机制，任何数据解构只要部署了iterator接口，就可以完成遍历操作
+2）ES6新的遍历命令 for...of 循环,iterator接口主要供for...of消费
+3）原生具备iterator接口
+	1）Array
+	2）Arguments
+	3）Set
+	4）Map
+	5）TypedArray
+	6）NodeList
+4）如何用？
+const xiyou = ['','','',''] //Array
+for(let v of xiyou){
+	console.log(v)//遍历xiyou里面的值
+}
+需要自定义遍历数据的时候就想到迭代器了
+const banji = {
+	name:'终极一班',
+	stus:[
+		'xiaoming',
+		'xiaoning',
+		'xiaotian',
+		'knight'
+	],
+[Symbol.iterator]() {
+                let index = 0
+                return {
+                    next: () => {
+                        if (index < this.person.length) {
+                            const result = { value: this.person[index], done: false }
+                            index++
+                            return result
+                        } else {
+                            return { value: undefined, done: true }
+                        }
+                    }
+                }
+            }
+            }
+}
+for(let v of banji){
+	//现在报错，所以要加Symbol方法
+}
+能用banji.stus.forEach() //但是不符合面向对象的要求，比如你直接拿我的钱，而不是我给你钱
+
+13.生成器
+1）生成器其实就是一个特殊的函数，用来异步编程  纯回调函数 node fs ajax mongodb
+function* gen() {
+            let one = yield '小唐'
+	console.log(one)
+            yield '小周'
+            yield '爱你'
+        }
+let result = gen()
+console.log(result.next()) // 小唐   返回的是yield后面语句的值，会执行上面的语句
+console.log(result.next()) // 小周
+console.log(result.next()) // 爱你
+for (let v of gen()) {
+        console.log(v)
+}
+2）生成器函数参数
+console.log(result.next())
+console.log(result.next('bbb')) // 第二次调用，bbb作为第一个 yield语句的返回结果 // bbb {value:'小唐',done:'false'}
+
+3）生成器函数实例
+*实例1：异步编程 文件操作
+1s后控制台输出 111 2s后输出222 3s后输出333，出现了回调地狱
+像这样利用生成器就好了，分批次调用
+function one() {
+            setTimeout(() => {
+                console.log(111)
+                result.next()
+            }, 1000)
+        }
+        function two() {
+            setTimeout(() => {
+                console.log(222)
+                result.next()
+            }, 1000)
+        }
+        function three() {
+            setTimeout(() => {
+                console.log(333)
+                result.next()
+            }, 1000)
+        }
+        function* gen() {
+            yield one()
+            yield two()
+            yield three()
+        }
+        let result = gen()
+        result.next()
+*实例2
+
+14.promise（ES6引入的异步编程的新解决方案）
+console.log() console.warn() console.err() 	throw '出错啦'
+*语法上promise是一个构造函数，用来封装异步操作并可以获得其成功或失败的结果
+1）promis封装读取文件
+2）promis封装ajax
+3）promise.prototype.then方法（可以链式调用的原理，避免回调地狱）
+
+*返回new promise(()=>{})  就终断了下一个.then
+
+*如果回调函数中返回的结果是非Promise类型的属性，状态为成功，返回值为对象的成功值
+then 方法的返回结果是Promise对象，对象状态由回调函数执行结果决定
+const result = p.then(value =>{
+	return 123 
+})
+console.log(result) //Promise里面是成功的，返回的值就是return的值
+		//没有return的时候，返回的值是undefined，也是成功的Promise
+
+
+
+
+*如果是Promise对象,成功就是成功，返回值是resolve的值
+返回失败就是失败，失败的值就是返回的值
+const result = p.then(value =>{
+	return new Promise((resolve,reject)=>{
+		resolve('ok')
+	})
+})
+console.log(result)
+
+*抛出错误，返回失败，失败的值就是抛出错的错误
+throw '出错啦'
+
+所以then方法是可以链式调用的
+p.then(value => {},reason => {}).then{value => {},reason = > {}}
+
+4）Promise读取多个文件
+
+5）Promise-catch方法（错误的语法糖）
+p.catch(function(reason){
+	console.warn(reason)
+})
+
+
+15-ES6-Set集合，类似于数组，但是数据都是唯一的（会为你自动去重！）
+let s2 = new Set(['1','2','1'])  // {'1','2'}
+s2.size // 2
+s2.add('3') // {'1','2','3'}
+s2.delete('1')//{'2','3'}
+s2.has('1') // true
+s2.clear() // {}
+for(let v of s2){
+	console.log(v)// 1,2,3
+}
+*实践
+let arr = [1,2,3,4,5,4,3,2,1]
+1）数据去重等
+
+
+16.ES6-Map的介绍和API（可以遍历，可以直接取变量地址值命名），Map也实现了iterator接口，可以使用扩展运算符和for of 进行遍历
+1）size
+2）set（增加一个元素，返回当前map）（m.set('name','xiaotang')）
+3）get
+4）has
+5）clear 清空
+for(let v of m){
+	console.log(v) // 以数组的形式挨个返回 ['name','xiaotang'] ['xuexiao','gaozhong']
+}
+
+17.ES6-class（类）（当做语法糖）
+class Phone {
+            constructor(brand, price) {
+                this.brand = brand
+                this.price = price
+            }
+            //方法必须使用该语法
+            call() {
+                console.log('打电话')
+            }
+        }
+        var onePlus = new Phone("1+", 19000)
+
+1）*class静态成员(ES5)
+function Phone(){
+	
+}
+Phone.name = '手机' //这个是属于Phone的，而不是实例对象的
+var one = new Phone()
+console.log(one.name) // undefined 
+
+2）(ES6)
+class Phone{
+	static name = '手机' // 属于类的
+}
+var one = new Phone()
+console.log(one.name) // undefined 
+
+3）(ES6对象继承)
+class Phone {
+            constructor(brand, price) {
+                this.brand = brand
+                this.price = price
+            }
+            call() {
+                console.log('打电话')
+            }
+        }
+
+        class One extends Phone {
+            constructor(brand, price, color, size) {
+                super(brand, price)
+                this.color = color
+                this.size = size
+            }
+            photo() {
+                console.log('拍照')
+            }
+        }
+        var xiaomi = new One('小米', '1799', '黑色', '4.7inch')
+
+4）对象重写：
+因为call 和 photo ，photo会先被找到，call在后面的一个prototype上
+所以可以给子类One加上一个 call  ，这样调用的就是子类的call了
+
+5）Class的get和set
+class Person {
+            get bbq() {
+                console.log('直接获取') //通常对对象的动态属性进行封装
+                return 'l love you'
+            }
+            set like(like) {
+                console.log('传参获取') 
+            }
+        }
+        var p = new Person()
+        console.log(p.bbq)
+        p.like = 123
+
+
+18.数值扩展
+Number.EPSILON 是javascript表示的最小精度
+1）EPSILON属性的值接近于2.2204460492503130808472633361816E-16 ，如果两个值差距接近于它，就认为他两相同
+2）二进制和八进制
+let b = 0b1010 //八
+let o = 0o777 // 二
+3）Number.isFinite()检测一个数是否为有限数
+4）Number.isNaN()检测一个数是否为NaN （isNaN）
+5）Number.parseInt（） 字符串转整数
+6）Number.isInteger 判断整数
+7）Math.trunc 将数字的小数部分抹掉
+8）Math.sign 判断正负0
+
+19.对象方法扩展
+Object.is(1,1) 判断两个值是否完全相等
+Object.assign 对象合并
+Object.setPrototypeOf Object.getPrototypeOf 设置原型对象，找到原型对象
+Object.setPrototypeOf(school,cities) // 将后面的设置为前面的原型对象
+
+
+20.ES6模块化
+将一个大的程序文件，拆分成许多小的文件，然后将小文件组合起来
+好处：防止命名冲突，代码复用，高维护性
+模块化规范产品：ES6之前：CommonJs=>NodeJS  AMD=>requireJs CMD=>saeJs
+1）模块化语法
+export 命令规定模块的对外接口
+import 命令用于输入其他模块提供的功能
+import * as m1 from ''./src/js/m1.js
+
+2）暴露语法汇总
+export let school = function(){
+
+}
+
+let school = function(){}
+export{school}
+
+//默认暴露
+export default {
+	school:'dada',
+	change:function(){
+		
+	}
+}
+
+3）引入语法汇总
+*通用的导入方式
+import * as m from ''
+*解构赋值形式
+import {school} from ''
+*别名
+import {school as findjb} from ''
+
+21.ES7新特性
+includes // true false
+
+22.ES8-async,await 两种语法结合（async的返回值和.then的一样）(then里面有两个，看promise决定走哪个)
+1）async函数的返回值为promise对象，promise对象的结果由async函数执行的返回值
+2）await
+*必须在async中
+*右边一般是promise
+*await返回的是promise成功的值
+*await的promise失败了，就会抛出异常，需要通过try...catch捕获处理
+3）async function fn() {
+            try {
+                let result = await new Promise(function (resolve, reject) {
+                    resolve('成功')
+                })
+            } catch (e) {
+                console.log(e)
+            } // 只能得到失败的结果
+        }
+        fn()
+
+4）async 和 awiat 结合
+
+axios返回结果就是promise包
+
+
+23.ES6-ES8对象方法
+Object.keys() // 获取对象的所有键名
+Object.value() // 获取所有值
+Object.entries() //返回一个数组，数组里面又是一个数组，数组里面是键值和数值
+配合Map
+const m = new Map(bject.entries())
+console.log(m.get('name')) // 返回值
+
+const obj = Object.create(null,{
+	name:{
+		//设置值
+		value : '小唐'
+		//属性特征
+		writable:true,
+		configurable:true,
+		enumerable:true
+	}
+})
+Object.getOwnPropertyDescriptors(obj) // 深层次的克隆
+
+
+24.ES9扩展运算符
+function connect({host,port,...user})
+connect({
+	host:'',
+	port:'',
+	username:''
+	password:''
+})
+扩展运算符
+const skillOne = {
+            q:'天音波',
+        }
+        const skillTwo = {
+            w:'金钟罩'
+        }
+const mangseng = {...skillOne,...skillTwo}
+
+25.正则扩展-命名捕获分组
+
+
+26.正则扩展-反向断言
+
+27.正则扩展-dotAll 模式
+dot . 元字符 除换行符以外的任意单个字符
+
+
+28.Object.fromEntries（对象扩展方法）
+
+
+29.
+var 有变量提升
+let和const 没有
+let声明的变量可以更改，但是不能重复声明，let具有块级作用域，它不会影响到作用域之外的
+const变量不能更改，一般声明的值不更改使用const，其他使用let
+
+let解构赋值
+let [a,b,c] = [1,2,3]
+let [foo,[[bar],baz]] = [1,[[2],3]]
+let [ , ,third] = [1,2,3] 
+
+允许指定默认值
+let [abc = true] = [false]
+没有false还是true 有就是false
+
+对象的解构赋值（只有let的对象是这样赋值的，用的非常多）
+类似数组的对象都有一个length
+let {length:len} = 'hello'
+len就是字符串长度的名字，都是这样的写法，前面的length必须是关键字
+如	var obj = {name:'小唐',age:18}
+	let {name:haha} = obj
+	这样就把obj里面的name赋值给了haha
+	也可以这样 let {name} = obj
+	这样就把obj里面的name赋值给了name;
+对于函数能够解构传参
+function add([a,b]){
+	return a + b
+}
+解构赋值用途
+（1）交换变量的值
+	let x = 1,y=2;
+	[x,y]=[y,x] 		面试题：请用一句代码，实现两个数据值互换
+（2）提取JSON数据
+	let jsonData = {
+		id:42,
+		status:'ok',
+		data:[867,5307] };
+	let {id,status,data:number} = jsonData;
+	console.log(id,status,number)
+
+用法  	var username= 'zhangsan';
+	var age =  20;
+	var obj = {username:'zhangsan',age:20}
+	这时他们是没有关系的哟，上面是应该变量，而下面是数组
+	但是
+	var obj = {username:username,age:age}
+	现在就有关系了
+	var obj = {username,age}
+	和上面输出的值一模一样
+
+unicode码声明字符串
+	var haha = '\u0062'; 	b
+	var hehe = '\u4e2d\u56fd'; 	中国
+
+字符串扩展 //拿到字符串里面每个东西
+	var str = 'xiaotang'
+	for(let i of str){
+		console.log(i)			
+	}
+	//拿到下标
+	var str = 'xiaotang'
+	for(let i in str){
+		console.log(i)			
+	}
+
+模板字符串
+	var username = 'xiaotang'
+	var age = 18
+	console.log(`<p>${username}</p>`)
+
+字符串新增方法 includes（）,startsWith（），endsWith（）
+●includes() :返回布尔值,表示是否找到了参数字符串。
+●startsWith( :返回布尔值,表示参数字符串是否在原字符串的头部。
+●endsWith() :返回布尔值,表示参数字符串是否在原字符串的尾部。
+用法	let username = 'xiaotang'
+	username.startsWith('x'，1（从1开始搜索）) 其他一样 不能传正则表达式
+
+拓展知识：str.split(/i/)	按i分割开（用的正则表达式）
+
+repeat（）重复多少次
+'x'.repeat(3) // 'xxx'
+'hello'.repeat(2) // 'hellohello'
+'na'.repeat(0) // ''
+
+padStart(),padEnd() 不够长度，会在头部，尾部截取生成，补全
+'x'.padStart(10,'ab')	在头部补上ab
+'y'.padEnd(5,'abc') 在尾部补上abc
+
+trimStart(),trimEnd() 消除字符串头部和尾部的空格，和trim用法一样
+返回的都是新字符串，不会修改原始字符串
+s.trim()
+
+数组合并
+...arr数组扩展，加上他就变成了1，2，3
+	var arr1 = [1,2,3]
+    	var arr2 = [4,5,6]
+       	 console.log([...arr1,...arr2])
+
+//展开运算符作为函数参数 ，可实现接受不固定个数的参数
+        function plus(...param){
+            // console.log(x)
+            // console.log(arguments)
+            // for(let i = 0;i < arguments.length ; i++){
+            //     console.log(arguments[i])
+            // }
+                console.log(param)
+        }
+        // var a = [2,2,3,4,5,6,7]
+        plus(2,2,3,4,5,6)
+
+	var arr = [1,2,3,4]
+	var it = arr.keys();
+	这个时候it就会遍历他所有的属性值
+
+	 Array.from(arr.keys())   这样就会将属性值转化成数组了
+	 function change(){
+          	  console.log(Array.from(arguments)) 不会改变原来的arguments
+      	  }
+       	 change(0,1,2,3)
+
+Array.of（）（主要是弥补数组构造函数的不足）
+	new Array（） //[ ]
+	new Array	（3）//[，，，]
+	new Array (3,4,5) // [3,4,5]
+	Array.of （3） // [3]
+
+数组实例的copywithin,会改变原来位置，还有会改变原来位置的有reverse
+ copywithin()
+三个参数，第一个从什么位置替换，第二个从什么位置去读替换的值（默认是0），第三个是什么位置停止读
+
+find（）和findindex（）
+	var arr = ['zhangsan','lishi','wangwu']
+        	var res = arr.find(function(item){
+          	  return item == 'zhangsan'                    
+     	   })
+      	  console.log(res) // zhangsan
+
+findindex 找到符合条件的第一个下标
+filter 找到所有符合条件的文本
+
+
+实例fill（）用来填充数组
+[1,2,3,4,''].fill(5) //[5,5,5,5,5]
+[1,2,3,4,''].fill(5,0,1)	//[5,2,3,4,'']
+
+
+对象的扩展
+		var name = 'xiaotang'
+        		var age = 20
+       		 const add = 'plus'
+        		var obj = {
+            			name, //name:name(20)
+          			 age,//age:age(20)这个age就是上面的那个了
+            			[add+'haha']:function(){
+               			 console.log('假发')
+           		 }
+       	 }
+        console.log(obj.plushaha())	
+
+Set :集合,类似于数组,但是集合的元素(成员)都是唯一-的 ,没有重复的值
+new Set()创建一个set对象 ,通过add(方法添加成员....
+	var all = new Set()
+       	 all[0] = '123' //这样写不好调值
+       	 all.add('xiaotang')
+        	all.add('小唐')
+      	 console.log(all.size)  //拿到长度
+       	 all.forEach(function(item){
+           	 console.log(item)
+        	})
+
+Map :类似于对象,也是键值对的集合,但是键名不仅限于字符串
+
+        var map = new Map()
+        map.set('name',19)
+        map.set('age',19)
+        map.get('name')
+        map.delete('name')
+
+Class类
+class Person{
+           	 constructor(name,age){
+               		 this.name = name
+               		 this.age = age
+           	 }
+           	 say(){
+               		 console.log(123)
+            	}
+ }
+Object.assign(Person.prototype,{
+            getName:function(){
+                return this.name
+            },
+            getAge:function(){
+                return this.age
+            }
+        })
+ var p1 = new Person('zhangsan',20)
+
+
+	
+
