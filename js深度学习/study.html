@@ -10,37 +10,49 @@
     <!-- <script src="./call_apply_bind.js"></script> -->
     <!-- <script src="./封装ajax.js"></script> -->
     <!-- <script src="./es6对象方法.js"></script> -->
-    <!-- <script src="./es6数组方法.js"></script> -->、
+    <!-- <script src="./es6数组方法.js"></script> -->
     <!-- <script src="./防抖节流.jss"></script> -->
-    <script>
-        // class Class2 {
-        //     get [Symbol.toStringTag]() {
-        //         return "Class2";
-        //     }
-        // }
-        // let myclass = new Class2()
-        // console.log(myclass.toString())
-        // function Name() {
-        //     this.name = 'xiaoatang'
-        // }
-        // let newName = new Name()
-        // console.log(Object.getPrototypeOf(newName))
-        // console.log(Number.isNaN('dadwad123'), isNaN('fszd123'))
-        // console.log(+(undefined))
-        // console.log([].valueOf())
-        // console.log(parseInt('312kl'))
-        // console.log(false || 1)
-        // console.log(Boolean(Symbol('xad')))
-        // console.log(undefined == undefined, null == null)
-        // console.log(parseFloat('3123.3213dawd'))
-        // console.log(parseInt(3123.3213))
-        // console.log(Number(3123.3213))
-        // console.log(Intl.NumberFormat().format(1391903213.312321))
-        console.log(Math.random() * (20 - 10) + 10)
-    </script>
+    <style>
+        #mydiv {
+            width: 100px;
+            background: rebeccapurple;
+            height: 1000px;
+        }
+
+        div {
+            height: 50px;
+            width: 50px;
+            background: yellow;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="mydiv">
+        <div ediv="name1" class="name1">1</div>
+        <div ediv="name2" class="name1">2</div>
+        <div ediv="name3" class="name1">3</div>
+        <div ediv="name4" class="name1">4</div>
+        <div ediv="name5" class="name1">5</div>
+        <div ediv="name6" class="name1">6</div>
+        <div ediv="name7" class="name1">7</div>
+        <div ediv="name8" class="name1">8</div>
+    </div>
+    <script>
+        // let mydiv = document.querySelector('#mydiv')
+        let myname = document.querySelectorAll('.name1')
+        mydiv.addEventListener('click', function (e) {
+            console.log(e.target.getAttribute('ediv'))
+        })
+        let newmyname = [...myname]
+        newmyname.forEach(item => {
+            item.addEventListener('click', function (e) {
+                event.stopPropagation()
+                console.log(133)
+            })
+        })
+    </script>
 </body>
 
 </html>
