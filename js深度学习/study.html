@@ -39,20 +39,8 @@
         <div ediv="name7" class="name1">7</div>
         <div ediv="name8" class="name1">8</div>
     </div>
-    <script>
-        // let mydiv = document.querySelector('#mydiv')
-        let myname = document.querySelectorAll('.name1')
-        mydiv.addEventListener('click', function (e) {
-            console.log(e.target.getAttribute('ediv'))
-        })
-        let newmyname = [...myname]
-        newmyname.forEach(item => {
-            item.addEventListener('click', function (e) {
-                event.stopPropagation()
-                console.log(133)
-            })
-        })
-    </script>
+    <script src="./async.js" async></script>
+    <script src="./defer.js" defer></script>
 </body>
 
 </html>
