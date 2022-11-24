@@ -9,9 +9,21 @@
 </head>
 
 <body>
+    <div>
+    </div>
     <script>
-        mystr = '121231dwad'
-        console.log(mystr.substring(2))
+        //将用户输入的字段改变颜色
+        // let con = prompt('要检测的字段')
+        // let reg = new RegExp(con, 'g')
+        // let mydiv = document.querySelector('div')
+        // mydiv.innerHTML = mydiv.innerHTML.replace(reg, serach => {
+        //     return `<span style='color:red'>${serach}</span>`
+        // })
+
+        // 检测电话号码
+        let phonenumber = '010-18982556519'
+        let isphone = /^(010|020)\-\d{7,8}$/
+        console.log(isphone.test(phonenumber))
     </script>
 </body>
 
