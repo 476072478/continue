@@ -21,9 +21,57 @@
         // })
 
         // 检测电话号码
-        let phonenumber = '010-18982556519'
-        let isphone = /^(010|020)\-\d{7,8}$/
-        console.log(isphone.test(phonenumber))
+        // let phonenumber = '010-18982556519'
+        // let isphone = /^(010|020)\-\d{7,8}$/
+        // console.log(isphone.test(phonenumber))
+
+        // let abc = 'abcdadwad12131'
+        // console.log(abc.match(/\w+/))
+
+        // let hd = `
+        // #1 js,200元 #
+        // #2 php,300元 #
+        // #9 houdunren.com # 后盾人
+        // #3 node.js,180元 #
+        // `
+        // let newhd = hd.match(/^\s*#\d+\s+.+\s+#$/gm).map(item => {
+        //     item = item.replace(/\s*#\d+\s*/, '').replace(/\s*#/, '')
+        //     let [name, price] = item.split(',')
+        //     return { name, price }
+        // })
+        // console.log(JSON.stringify(newhd, null, 2))
+
+        // let hd = 'houdunren.com'
+        // console.log(hd.match(/\p{L}/gu))
+
+
+        // let hd = 'xiaotangniubi.com'
+        // let reg = /\w/g
+        // // console.log(reg.lastIndex)
+        // // console.log(reg.exec(hd))
+        // while (res = reg.exec(hd)) {
+        //     console.log(res)
+        // }
+        // let hd = 'xiaoxangniubi.com'
+        // let reg = /x/g
+        // console.log(reg.exec(hd)) // g:x y:x
+        // console.log(reg.lastIndex) // g:1 y:1
+        // console.log(reg.exec(hd)) // g:x  y:null
+        // console.log(reg.lastIndex) // g:5 y:0
+
+
+        //y模式高效检索
+        // let hd = '小唐真牛:476072478,312312412,645345345小唐哈哈哈哈哈哈'
+        // let reg = /(\d+),?/y
+        // reg.lastIndex = 5
+        // while (res = reg.exec(hd)) {
+        //     console.log(res)
+        // }
+
+        // 原子组的使用
+        let hd = '2022/11/25'
+        let reg = /^\d{4}([-\/])\d{2}\1\d{2}/
+        console.log(hd.match(reg))
     </script>
 </body>
 
